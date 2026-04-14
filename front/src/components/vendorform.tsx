@@ -1,7 +1,6 @@
-
-import { useState } from "react"
-import { registerUser } from "../services/auth.ts"
+import { useState } from "react";
 import styled from "styled-components";
+import { createVendor } from "../services/vendor";
 
 const StyledForm = styled.form`
   display: flex;
@@ -42,19 +41,21 @@ const StyledButton = styled.button`
   }
 `;
 
-export default function Register() {
+export default function VendorForm({ onAdd }: { onAdd: () => void }) {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [service, setService] = useState("");
+  const [contact, setContact] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      await registerUser({ name, email, password });
-      console.log("Utilisateur créé ✅");
-    } catch (error) {
-      console.log("Erreur inscription ❌");
+      await createVendor({ name, service, contact });
+      setName("");
+      setService("");
+      setContact("");
+      onAdd();
+    } catch (err) {
+      alert("Erreur lors de l'ajout du prestataire");
     }
   };
 
@@ -62,23 +63,26 @@ export default function Register() {
     <StyledForm onSubmit={handleSubmit}>
       <StyledInput
         type="text"
-        placeholder="Nom"
+        placeholder="Nom du prestataire"
         value={name}
-        onChange={(e) => setName(e.target.value)}
+        onChange={e => setName(e.target.value)}
+        required
       />
       <StyledInput
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        type="text"
+        placeholder="Type de service"
+        value={service}
+        onChange={e => setService(e.target.value)}
+        required
       />
       <StyledInput
-        type="password"
-        placeholder="Mot de passe"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        type="text"
+        placeholder="Contact"
+        value={contact}
+        onChange={e => setContact(e.target.value)}
+        required
       />
-      <StyledButton type="submit">S'inscrire</StyledButton>
+      <StyledButton type="submit">Ajouter</StyledButton>
     </StyledForm>
   );
 }

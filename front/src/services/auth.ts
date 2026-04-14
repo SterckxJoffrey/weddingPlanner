@@ -1,6 +1,6 @@
 import {API_URL} from './api'
 
-export async function registerUser(data: { email: string; password: string }) {
+export async function registerUser(data: { name: string; email: string; password: string }) {
     const res = await fetch(`${API_URL}/auth/register` , {
         method : "POST",
         headers : {

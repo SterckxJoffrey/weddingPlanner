@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 const Container = styled.div`
+  background-image: url("https://img.freepik.com/photos-gratuite/fleurs-blanches-fraiches-dans-vase-table-marbre_114579-66007.jpg?semt=ais_hybrid&w=740&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
